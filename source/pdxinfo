@@ -1,0 +1,8 @@
+name=Testing
+author=Debug Potion
+description=Just testing
+bundleID=com.debugpotion.testing
+version=0.0.1
+buildNumber=1
+imagePath=assets/launcher/
+launchSoundPath=assets/launcher/sound.wav

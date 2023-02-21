@@ -22,6 +22,9 @@ function GameScene:update()
 end
 
 GameScene.inputHandler = {
+	AButtonDown = function()
+		hero:jump()
+	end,
 	leftButtonDown = function()
 		hero:goLeft()
 	end,

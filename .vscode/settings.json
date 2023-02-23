@@ -1,0 +1,14 @@
+{
+  "Lua.codeLens.enable": true,
+  "Lua.runtime.special": {
+    "include": "require"
+  },
+  "settingsSync.ignoredExtensions": ["sumneko.lua"],
+  "Lua.diagnostics.globals": ["playdate", "import"],
+  "Lua.runtime.nonstandardSymbol": ["+=", "-="],
+  "Lua.workspace.library": [
+    "$PLAYDATE_SDK_PATH/CoreLibs",
+    "source/libraries/noble",
+    "source/libraries/PlaydateLDtkImporter"
+  ]
+}

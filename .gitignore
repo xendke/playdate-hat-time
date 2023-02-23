@@ -1,5 +1,6 @@
-# Noble library
+# Libraries
 noble/
+PlaydateLDtkImporter/
 
 # Compiled Lua sources
 luac.out

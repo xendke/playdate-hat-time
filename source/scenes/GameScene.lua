@@ -8,11 +8,14 @@ local hero = Hero()
 
 function GameScene:init()
 	GameScene.super.init(self)
+	local tilemap = LDtk.create_tilemap("Level_0", "Tiles")
+	Graphics.sprite.addWallSprites( tilemap, LDtk.get_empty_tileIDs( "Level_0", "Solid", "Tiles") )
 
-	for tile = 0,13,1
-	do
-		self:addSprite(Tile(tile*32, 225))
-	end
+	local layerSprite = Graphics.sprite.new()
+	layerSprite:setTilemap( tilemap )
+	layerSprite:moveTo(0, 0)
+	layerSprite:setCenter(0, 0)
+	layerSprite:add()
 
 	self:addSprite(hero)
 end

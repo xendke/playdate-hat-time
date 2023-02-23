@@ -7,7 +7,7 @@ function Hero:init()
 	self.animation:addState("idle", 13, 23)
 	self.animation:addState("walk", 1, 12)
 
-    self:moveTo(100,100)
+    self:moveTo(300,100)
     self:setSize(32,32)
 
     self.downwardSpeed = 4
@@ -36,10 +36,9 @@ end
 
 
 function Hero:collisionResponse(other)
-    if other:isa(Tile) and self.jumping then
+    if self.jumping then
         self.jumping = false
         self.airTime = 0
-        print("jumping and tile hit")
     end
     
     return Graphics.sprite.kCollisionTypeSlide

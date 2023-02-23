@@ -1,9 +1,12 @@
 import 'libraries/noble/Noble'
+import 'libraries/PlaydateLDtkImporter/LDtk'
 
 import 'utilities/Utilities'
 
 import 'scenes/MenuScene'
 import 'scenes/GameScene'
+
+LDtk.load( "assets/levels/TestWorld.ldtk" )
 
 Noble.Settings.setup({
 })

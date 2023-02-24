@@ -6,7 +6,7 @@ import 'utilities/Utilities'
 import 'scenes/MenuScene'
 import 'scenes/GameScene'
 
-LDtk.load( "assets/levels/TestWorld.ldtk" )
+LDtk.load( "assets/levels/SmallerWorld.ldtk" )
 
 Noble.Settings.setup({
 })

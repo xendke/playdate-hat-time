@@ -1,14 +1,17 @@
 Hero = {}
 class("Hero").extends(NobleSprite)
 
-function Hero:init()
+function Hero:init(entity)
 	Hero.super.init(self, "assets/images/hero", true)
     
 	self.animation:addState("idle", 13, 23)
 	self.animation:addState("walk", 1, 12)
 
-    self:moveTo(300,100)
-    self:setSize(32,32)
+	self:setZIndex(entity.zIndex)
+	self:moveTo(entity.position.x, entity.position.y)
+	self:setCenter(entity.center.x, entity.center.y)
+    
+    self:setSize(32,32) -- update with 16x16 sprite
 
     self.downwardSpeed = 4
 

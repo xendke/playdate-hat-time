@@ -1,7 +1,11 @@
--- Put your utilities and other helper functions here.
--- The "Utilities" table is already defined in "noble/Utilities.lua."
--- Try to avoid name collisions.
+local LEVEL <const> = "Level"
+local SLOT <const> = 1
 
-function Utilities.getZero()
-	return 0
+function Utilities.setLevel(nextLevel)
+	return Noble.GameData.set(LEVEL, nextLevel, SLOT)
+end
+
+
+function Utilities.getLevel()
+	return Noble.GameData.get(LEVEL, SLOT)
 end

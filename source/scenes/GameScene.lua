@@ -5,7 +5,7 @@ GameScene = {}
 class("GameScene").extends(NobleScene)
 
 local hero
-local transitioning
+local wallSprites
 
 GameScene.backgroundColor = Graphics.kColorBlack
 
@@ -13,7 +13,7 @@ local function loadMap(gameScene, level)
 	local tilemap = LDtk.create_tilemap(level, "Tiles")
 	local decorTilemap = LDtk.create_tilemap(level, "Decoration")
 
-	Graphics.sprite.addWallSprites(tilemap, LDtk.get_empty_tileIDs(level, "Solid", "Tiles"))
+	wallSprites = Graphics.sprite.addWallSprites(tilemap, LDtk.get_empty_tileIDs(level, "Solid", "Tiles"))
 
 	local tilesSprite = Graphics.sprite.new()
 	tilesSprite:setTilemap(tilemap)
@@ -43,17 +43,33 @@ end
 
 function GameScene:init()
 	GameScene.super.init(self)
-	transitioning = false
-
-	loadMap(self, "Level_0")
+	loadMap(self, Utilities.getLevel())
 end
 
 function GameScene:update()
 	GameScene.super.update(self)
-	if hero.x > 400 and not transitioning then
-		transitioning = true
-		Noble.transition(MenuScene, 1, Noble.TransitionType.DIP_TO_BLACK)
+
+	local left = hero.x
+	local right = hero.x + hero.width
+	if left < 0 then
+		self:moveScene("west")
 	end
+	if right > 400  then
+		self:moveScene("east")
+	end
+end
+
+function GameScene:moveScene(direction)
+	local nextLevel = LDtk.get_neighbours( Utilities.getLevel(), direction)[1]
+	if not nextLevel then return end -- should error instead maybe
+	
+	for _, sprite in ipairs(wallSprites) do
+		if sprite then
+			sprite:remove()
+		end
+	end
+	Utilities.setLevel(nextLevel)
+	Noble.transition(GameScene, 1, Noble.TransitionType.DIP_TO_BLACK)
 end
 
 

@@ -12,9 +12,9 @@ Noble.Settings.setup({
 })
 
 Noble.GameData.setup({
-	Score = 0
-})
+	Level = "Level_0"
+}, 4, true)
 
 Noble.showFPS = true
 
-Noble.new(GameScene, 1.5, Noble.TransitionType.CROSS_DISSOLVE)
+Noble.new(MenuScene, 1.5, Noble.TransitionType.CROSS_DISSOLVE)

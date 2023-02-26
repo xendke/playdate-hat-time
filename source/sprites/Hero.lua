@@ -17,6 +17,12 @@ function Hero:init(entity)
 
     self.direction = 0
 
+    if entity.fields.EntranceDirection == Utilities.EAST then
+        self.animation.direction = Noble.Animation.DIRECTION_RIGHT
+    else
+        self.animation.direction = Noble.Animation.DIRECTION_LEFT
+    end
+
     self.speed = 2
     self.jumping = false
     self.airTime = 0

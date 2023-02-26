@@ -12,7 +12,8 @@ Noble.Settings.setup({
 })
 
 Noble.GameData.setup({
-	Level = "Level_0"
+	Level = "Level_0",
+	EntranceDirection = Utilities.DEFAULT_DIRECTION
 }, 4, true)
 
 Noble.showFPS = true

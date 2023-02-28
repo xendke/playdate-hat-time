@@ -60,7 +60,7 @@ end
 
 function GameScene:moveScene(direction)
 	local nextLevel = LDtk.get_neighbours( Utilities.getLevel(), direction)[1]
-	if not nextLevel then return end -- should error instead maybe
+	if not nextLevel then return end
 	
 	for _, sprite in ipairs(wallSprites) do
 		if sprite then

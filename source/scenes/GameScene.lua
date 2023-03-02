@@ -98,5 +98,8 @@ GameScene.inputHandler = {
 	end,
 	rightButtonUp = function()
 		hero:stopMoving()
+	end,
+	cranked = function()
+		hero:timeTravel()
 	end
 }

@@ -1,3 +1,5 @@
+import "utilities/Stack"
+
 Hero = {}
 class("Hero").extends(NobleSprite)
 
@@ -43,10 +45,14 @@ function Hero:init(entity)
 	self.jumpPressDuration = 0
 
 	self.velocity = playdate.geometry.vector2D.new(0,0)
+
+	self.previousCoords = HeroStack:Create()
 end
 
 function Hero:update()
     Hero.super.update(self)
+
+	if not playdate.isCrankDocked() then return end
     
 	local dt = 1 / playdate.display.getRefreshRate()
 
@@ -122,6 +128,9 @@ function Hero:update()
 	self.justLanded = isGrounded and not self.isGrounded
 	self.isGrounded = isGrounded
 	self.bangCeiling = my~=goalY and self.velocity.y<0
+
+	-- save to stack
+	self.previousCoords:addCoords(self.x, self.y)
 end
 
 
@@ -135,6 +144,7 @@ end
 -- end
 
 function Hero:jump()
+	printTable(self.previousCoords)
 end
 
 function Hero:goRight()
@@ -148,3 +158,11 @@ function Hero:stopMoving()
     self.animation:setState("idle")
 end
 
+function Hero:timeTravel()
+	local pos = self.previousCoords:getCoords()
+	print("time travel")
+	printTable(pos)
+	if pos then
+		self:moveTo(pos.x, pos.y)
+	end
+end

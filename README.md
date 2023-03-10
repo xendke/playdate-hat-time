@@ -1,4 +1,5 @@
-# Noble Engine: project template
-A starting template for [Noble Engine](https://github.com/NobleRobot/NobleEngine) projects.
+# Hat Time
 
-The engine is included as a submodule for this repository. Be sure to recurse submodules when you clone this repo or use it as a template.
+A small little platformer game for the [Playdate](https://play.date/)
+
+![Video of Hat Time gameplay](./assets/hat-time.webp)

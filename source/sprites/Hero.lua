@@ -3,19 +3,19 @@ import "utilities/Stack"
 Hero = {}
 class("Hero").extends(NobleSprite)
 
-local live = {
-	player_speed = 5,
+local BALANCE = {
+	player_speed = 3,
 	player_acc = 1,
 	player_ground_friction = 0.8,
-	player_air_friction = 0.3,
+	player_air_friction = 0.2,
 
 	jump_grace = 0.1,
 	jump_buffer = 0.1,
-	jump_long_press = 0.12,
-	jump_velocity = -15,
+	jump_long_press = 0.1,
+	jump_velocity = -13,
 
 	gravity_up = 80,
-	gravity_down = 130,
+	gravity_down = 40,
 	player_max_gravity = 40,
 }
 
@@ -41,7 +41,7 @@ function Hero:init(entity)
 	self.justLanded = false
 	self.bangCeiling = false
 	self.groundedLast = 0
-	self.lastJumpPress = live.jump_buffer
+	self.lastJumpPress = BALANCE.jump_buffer
 	self.jumpPressDuration = 0
 
 	self.velocity = playdate.geometry.vector2D.new(0,0)
@@ -60,12 +60,12 @@ function Hero:update()
 	-- Friction
 	if self.isGrounded then
 		if not playdate.buttonIsPressed( playdate.kButtonLeft | playdate.kButtonRight ) then
-			self.velocity.x = Utilities.approach(self.velocity.x, 0, live.player_ground_friction)
+			self.velocity.x = Utilities.approach(self.velocity.x, 0, BALANCE.player_ground_friction)
 		end
 		self.velocity.y = 0
 	else
 		if not playdate.buttonIsPressed( playdate.kButtonLeft | playdate.kButtonRight ) then
-			self.velocity.x = Utilities.approach(self.velocity.x, 0, live.player_air_friction)
+			self.velocity.x = Utilities.approach(self.velocity.x, 0, BALANCE.player_air_friction)
 		end
 
 		if self.bangCeiling then
@@ -75,11 +75,11 @@ function Hero:update()
 
 	-- move left/right
 	if playdate.buttonIsPressed( playdate.kButtonLeft ) then
-		self.velocity.x = Utilities.approach(self.velocity.x, -live.player_speed, live.player_acc)
+		self.velocity.x = Utilities.approach(self.velocity.x, -BALANCE.player_speed, BALANCE.player_acc)
         self.animation.direction = Noble.Animation.DIRECTION_LEFT
 	end
 	if playdate.buttonIsPressed( playdate.kButtonRight ) then
-		self.velocity.x = Utilities.approach(self.velocity.x, live.player_speed, live.player_acc) 
+		self.velocity.x = Utilities.approach(self.velocity.x, BALANCE.player_speed, BALANCE.player_acc) 
         self.animation.direction = Noble.Animation.DIRECTION_RIGHT
 	end
 
@@ -96,27 +96,27 @@ function Hero:update()
 
 	if self.jumpPressDuration>0 then
 		if playdate.buttonIsPressed( playdate.kButtonA ) then
-			self.velocity.y = live.jump_velocity
+			self.velocity.y = BALANCE.jump_velocity
 			self.jumpPressDuration = self.jumpPressDuration - dt
 		else
 			self.jumpPressDuration = 0
 		end
 	end
 
-	if self.lastJumpPress < live.jump_buffer and self.groundedLast < live.jump_grace then
-		self.velocity.y = live.jump_velocity
+	if self.lastJumpPress < BALANCE.jump_buffer and self.groundedLast < BALANCE.jump_grace then
+		self.velocity.y = BALANCE.jump_velocity
 		self.isGrounded = false
 
-		self.lastJumpPress = live.jump_buffer
-		self.groundedLast = live.jump_grace
-		self.jumpPressDuration = live.jump_long_press
+		self.lastJumpPress = BALANCE.jump_buffer
+		self.groundedLast = BALANCE.jump_grace
+		self.jumpPressDuration = BALANCE.jump_long_press
 	end
 
 	-- Gravity	
 	if self.velocity.y >= 0 then
-		self.velocity.y = math.min( self.velocity.y + live.gravity_down * dt, live.player_max_gravity)
+		self.velocity.y = math.min( self.velocity.y + BALANCE.gravity_down * dt, BALANCE.player_max_gravity)
 	else
-		self.velocity.y = self.velocity.y + live.gravity_up * dt
+		self.velocity.y = self.velocity.y + BALANCE.gravity_up * dt
 	end
 
 	local goalX = self.x + self.velocity.x

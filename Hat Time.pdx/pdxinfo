@@ -1,10 +1,10 @@
-name=Testing
+name=Hat Time
 author=Debug Potion
 description=Just testing
-bundleID=com.debugpotion.testing
+bundleID=com.debugpotion.HatTime
 version=0.0.1
 buildNumber=1
 imagePath=assets/launcher/
 launchSoundPath=assets/launcher/sound.wav
 pdxversion=11300
-buildtime=731740044
+buildtime=731798978

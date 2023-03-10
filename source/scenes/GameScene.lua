@@ -1,5 +1,4 @@
 import "sprites/Hero"
-import "sprites/Tile"
 
 GameScene = {}
 class("GameScene").extends(NobleScene)

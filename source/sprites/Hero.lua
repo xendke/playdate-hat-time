@@ -52,7 +52,8 @@ end
 function Hero:update()
     Hero.super.update(self)
 
-	if not playdate.isCrankDocked() then return end
+	local cranking = playdate.getCrankChange() >= 1
+	if cranking then return end
     
 	local dt = 1 / playdate.display.getRefreshRate()
 
@@ -129,19 +130,9 @@ function Hero:update()
 	self.isGrounded = isGrounded
 	self.bangCeiling = my~=goalY and self.velocity.y<0
 
-	-- save to stack
+	-- Save position to stack
 	self.previousCoords:addCoords(self.x, self.y)
 end
-
-
--- function Hero:collisionResponse(other)
---     if self.jumping then
---         self.jumping = false
---         self.airTime = 0
---     end
-    
---     return Graphics.sprite.kCollisionTypeSlide
--- end
 
 function Hero:jump()
 	printTable(self.previousCoords)
@@ -160,8 +151,6 @@ end
 
 function Hero:timeTravel()
 	local pos = self.previousCoords:getCoords()
-	print("time travel")
-	printTable(pos)
 	if pos then
 		self:moveTo(pos.x, pos.y)
 	end

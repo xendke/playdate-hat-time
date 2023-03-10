@@ -16,6 +16,6 @@ Noble.GameData.setup({
 	EntranceDirection = Utilities.DEFAULT_DIRECTION
 }, 4, true)
 
-Noble.showFPS = true
+Noble.showFPS = false
 
 Noble.new(MenuScene, 1.5, Noble.TransitionType.CROSS_DISSOLVE)

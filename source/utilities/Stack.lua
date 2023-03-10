@@ -1,6 +1,4 @@
 -- Stack Table
--- Uses a table as stack, use <table>:push(value) and <table>:pop()
--- Lua 5.1 compatible
 function Stack()
   return setmetatable({
     _stack = {},
@@ -59,19 +57,20 @@ end
 HeroStack = {}
 
 function HeroStack:Create()
-    local heroStack = Stack()
+  local heroStack = Stack()
+  local maxSize <const> = 1000
 
-    function heroStack:addCoords(x, y)
-        if(heroStack.count > 1000) then
-            heroStack:shift()
-        end
+  function heroStack:addCoords(x, y)
+      if(heroStack.count > maxSize) then
+          heroStack:shift()
+      end
 
-        heroStack:push({x = x, y = y})
-    end
+      heroStack:push({x = x, y = y})
+  end
 
-    function heroStack:getCoords()
-        return heroStack:pop()
-    end
+  function heroStack:getCoords()
+      return heroStack:pop()
+  end
 
-    return heroStack
+  return heroStack
 end

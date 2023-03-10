@@ -55,8 +55,9 @@ function MenuScene:enter()
 	MenuScene.super.enter(self)
 
 	sequence = Sequence.new():from(0):to(100, 1.5, Ease.outBounce)
-	sequence:start();
-
+	if sequence then
+		sequence:start();
+	end
 end
 
 function MenuScene:start()
@@ -93,8 +94,9 @@ function MenuScene:exit()
 
 	Noble.Input.setCrankIndicatorStatus(false)
 	sequence = Sequence.new():from(100):to(240, 0.25, Ease.inSine)
-	sequence:start();
-
+	if sequence then 
+		sequence:start();
+	end
 end
 
 function MenuScene:finish()

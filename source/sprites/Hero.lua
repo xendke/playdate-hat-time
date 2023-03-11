@@ -155,3 +155,12 @@ function Hero:timeTravel()
 		self:moveTo(pos.x, pos.y)
 	end
 end
+
+
+function Hero:collisionResponse(other)
+	if other.className == "Gem" then
+		return Graphics.sprite.kCollisionTypeOverlap
+	end
+
+	return Graphics.sprite.kCollisionTypeSlide
+end

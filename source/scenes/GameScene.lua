@@ -1,4 +1,5 @@
 import "sprites/Hero"
+import "sprites/Gem"
 
 GameScene = {}
 class("GameScene").extends(NobleScene)
@@ -35,6 +36,11 @@ local function loadMap(gameScene, level, entranceDirection)
 		if entity.name == "Hero" and entranceDirection == entity.fields.EntranceDirection then
 			hero = Hero(entity)
 			gameScene:addSprite(hero)
+		end
+		
+		if entity.name == "Gem" then
+			local gem = Gem(entity)
+			gameScene:addSprite(gem)
 		end
 	end
 end

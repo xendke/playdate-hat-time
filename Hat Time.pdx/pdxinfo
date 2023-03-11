@@ -1,10 +1,10 @@
 name=Hat Time
-author=Debug Potion
-description=Just testing
+author=DebugPotion
+description=A platformer adventure of a time traveling magical hat and his new owner.
 bundleID=com.debugpotion.HatTime
 version=0.0.1
 buildNumber=1
 imagePath=assets/launcher/
 launchSoundPath=assets/launcher/sound.wav
 pdxversion=11300
-buildtime=731798978
+buildtime=731865164

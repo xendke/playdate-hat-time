@@ -6,6 +6,7 @@ class("GameScene").extends(NobleScene)
 
 local hero
 local wallSprites
+local gemGui
 
 GameScene.backgroundColor = Graphics.kColorBlack
 
@@ -47,11 +48,15 @@ end
 
 function GameScene:init()
 	GameScene.super.init(self)
+	gemGui = Graphics.image.new("assets/images/gemcontainer")
 	loadMap(self, Utilities.getLevel(), Utilities.getEntranceDirection())
 end
 
 function GameScene:update()
 	GameScene.super.update(self)
+
+	gemGui:draw(8, 220)
+	Noble.Text.draw(hero.gemCount, 34, 224, Noble.Text.ALIGN_RIGHT, false, Noble.Text.FONT_SMALL)
 
 	local left = hero.x
 	local right = hero.x + hero.width
@@ -74,7 +79,8 @@ function GameScene:moveScene(direction)
 	end
 	Utilities.setLevel(nextLevel)
 	Utilities.setEntranceDirection(direction)
-	Noble.transition(GameScene, 1, Noble.TransitionType.DIP_TO_BLACK)
+	if Noble.isTransitioning then return end
+	Noble.transition(GameScene, 0.5, Noble.TransitionType.DIP_TO_BLACK)
 end
 
 

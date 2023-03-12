@@ -56,7 +56,11 @@ function GameScene:update()
 	GameScene.super.update(self)
 
 	gemGui:draw(8, 220)
-	Noble.Text.draw(hero.gemCount, 34, 224, Noble.Text.ALIGN_RIGHT, false, Noble.Text.FONT_SMALL)
+	Noble.Text.draw(Utilities.getGemCount(), 34, 224, Noble.Text.ALIGN_RIGHT, false, Noble.Text.FONT_SMALL)
+
+	-- collision
+	local collisions = Graphics.sprite.allOverlappingSprites()
+	self:handleCollisions(collisions)
 
 	local left = hero.x
 	local right = hero.x + hero.width
@@ -65,6 +69,23 @@ function GameScene:update()
 	end
 	if right > 400  then
 		self:moveScene(Utilities.EAST)
+	end
+end
+
+
+function GameScene:handleCollisions(collisions)
+	for i = 1, #collisions do
+		local collisionPair = collisions[i]
+        local sprite1 = collisionPair[1]
+        local sprite2 = collisionPair[2]
+		if(sprite1.className == "Gem" and sprite2.className == "Hero") then
+			sprite1:remove()
+			Utilities.increaseGemCount()
+		end
+		if(sprite2.className == "Gem" and sprite1.className == "Hero") then
+			sprite2:remove()
+			Utilities.increaseGemCount()
+		end
 	end
 end
 

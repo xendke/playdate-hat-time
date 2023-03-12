@@ -124,8 +124,7 @@ function Hero:update()
 	local goalX = self.x + self.velocity.x
 	local goalY = self.y + self.velocity.y
 
-	local _, my, collisions = self:moveWithCollisions(goalX, goalY)
-	self:handleCollisions(collisions)
+	local _, my = self:moveWithCollisions(goalX, goalY)
 
 	local isGrounded = my~=goalY and self.velocity.y>0
 	self.justLanded = isGrounded and not self.isGrounded
@@ -134,17 +133,6 @@ function Hero:update()
 
 	-- Save position to stack
 	self.previousCoords:addCoords(self.x, self.y)
-end
-
-function Hero:handleCollisions(collisions)
-	for i = 1, #collisions do
-		local collisionPair = collisions[i]
-		local other = collisionPair.other
-		if(other.className == "Gem") then
-			other:remove()
-			self.gemCount += 1
-		end
-	end
 end
 
 function Hero:jump()

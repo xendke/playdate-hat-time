@@ -4,6 +4,7 @@ Utilities.DEFAULT_DIRECTION = Utilities.EAST
 
 local LEVEL <const> = "Level"
 local DIRECTION <const> = "EntranceDirection"
+local GEM_COUNT <const> = "GemCount"
 local SLOT <const> = 1
 
 function Utilities.setLevel(nextLevel)
@@ -23,6 +24,14 @@ end
 
 function Utilities.getEntranceDirection()
 	return Noble.GameData.get(DIRECTION, SLOT)
+end
+function Utilities.increaseGemCount()
+	local current = Noble.GameData.get(GEM_COUNT, SLOT)
+	return Noble.GameData.set(GEM_COUNT, current + 1, SLOT)
+end
+
+function Utilities.getGemCount()
+	return Noble.GameData.get(GEM_COUNT, SLOT)
 end
 
 function Utilities.approach(value,target,step)

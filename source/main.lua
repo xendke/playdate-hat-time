@@ -13,7 +13,8 @@ Noble.Settings.setup({
 
 Noble.GameData.setup({
 	Level = "Level_0",
-	EntranceDirection = Utilities.DEFAULT_DIRECTION
+	EntranceDirection = Utilities.DEFAULT_DIRECTION,
+	GemCount = 0
 }, 4, true)
 
 Noble.showFPS = false

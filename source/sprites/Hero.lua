@@ -37,6 +37,8 @@ function Hero:init(entity)
     self:setSize(16, 16)
 	self:setCollideRect(0, 0, 16, 16)
 
+	self.gemCount = 0
+
 	self.isGrounded = false
 	self.justLanded = false
 	self.bangCeiling = false
@@ -122,8 +124,8 @@ function Hero:update()
 	local goalX = self.x + self.velocity.x
 	local goalY = self.y + self.velocity.y
 
-	local _, my = self:moveWithCollisions( self.x, goalY)
-	local mx, _ = self:moveWithCollisions( goalX, self.y)
+	local _, my, collisions = self:moveWithCollisions(goalX, goalY)
+	self:handleCollisions(collisions)
 
 	local isGrounded = my~=goalY and self.velocity.y>0
 	self.justLanded = isGrounded and not self.isGrounded
@@ -134,8 +136,19 @@ function Hero:update()
 	self.previousCoords:addCoords(self.x, self.y)
 end
 
+function Hero:handleCollisions(collisions)
+	for i = 1, #collisions do
+		local collisionPair = collisions[i]
+		local other = collisionPair.other
+		if(other.className == "Gem") then
+			other:remove()
+			self.gemCount += 1
+		end
+	end
+end
+
 function Hero:jump()
-	printTable(self.previousCoords)
+	-- printTable(self.previousCoords)
 end
 
 function Hero:goRight()

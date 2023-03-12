@@ -10,7 +10,5 @@ function Gem:init(entity)
 	self:moveTo(entity.position.x, entity.position.y)
 	self:setCenter(entity.center.x, entity.center.y)
     self:setSize(16, 16)
-	self:setCollideRect(0, 0, 16, 16)
-
-    self.type = 'Gem'
+	self:setCollideRect(3, 2, 12, 14)
 end

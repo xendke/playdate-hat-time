@@ -2,7 +2,7 @@ Gem = {}
 class("Gem").extends(NobleSprite)
 
 function Gem:init(entity)
-	Hero.super.init(self, "assets/images/gem", true)
+	Gem.super.init(self, "assets/images/gem", true)
     
 	self.animation:addState("sparkling", 1, 6, nil, nil, nil, 6)
     

@@ -1,6 +1,8 @@
 import "sprites/Hero"
 import "sprites/Gem"
 
+import "utilities/GemTracker"
+
 GameScene = {}
 class("GameScene").extends(NobleScene)
 
@@ -40,8 +42,10 @@ local function loadMap(gameScene, level, entranceDirection)
 		end
 		
 		if entity.name == "Gem" then
-			local gem = Gem(entity)
-			gameScene:addSprite(gem)
+			if not GemTracker.alreadyCollected(level, entity.position.x, entity.position.y) then
+				local gem = Gem(entity)
+				gameScene:addSprite(gem)
+			end
 		end
 	end
 end
@@ -56,7 +60,7 @@ function GameScene:update()
 	GameScene.super.update(self)
 
 	gemGui:draw(8, 220)
-	Noble.Text.draw(Utilities.getGemCount(), 34, 224, Noble.Text.ALIGN_RIGHT, false, Noble.Text.FONT_SMALL)
+	Noble.Text.draw(GemTracker.getCount(), 34, 224, Noble.Text.ALIGN_RIGHT, false, Noble.Text.FONT_SMALL)
 
 	-- collision
 	local collisions = Graphics.sprite.allOverlappingSprites()
@@ -78,19 +82,23 @@ function GameScene:handleCollisions(collisions)
 		local collisionPair = collisions[i]
         local sprite1 = collisionPair[1]
         local sprite2 = collisionPair[2]
-		if(sprite1.className == "Gem" and sprite2.className == "Hero") then
-			sprite1:remove()
-			Utilities.increaseGemCount()
+		local gem = nil
+		if sprite1.className == "Gem" and sprite2.className == "Hero" then
+			gem = sprite1
 		end
-		if(sprite2.className == "Gem" and sprite1.className == "Hero") then
-			sprite2:remove()
-			Utilities.increaseGemCount()
+		if sprite2.className == "Gem" and sprite1.className == "Hero" then
+			gem = sprite2
+		end
+
+		if gem then
+			GemTracker.collectGem(Utilities.getLevel(), gem.x, gem.y)
+			gem:remove()
 		end
 	end
 end
 
 function GameScene:moveScene(direction)
-	local nextLevel = LDtk.get_neighbours( Utilities.getLevel(), direction)[1]
+	local nextLevel = LDtk.get_neighbours(Utilities.getLevel(), direction)[1]
 	if not nextLevel then return end
 	
 	for _, sprite in ipairs(wallSprites) do
@@ -111,6 +119,8 @@ end
 
 GameScene.inputHandler = {
 	AButtonDown = function()
+		local tr = GemTracker.getTracker()
+		printTable(tr)
 		hero:jump()
 	end,
 	leftButtonDown = function()
